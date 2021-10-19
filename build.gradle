@@ -1,0 +1,54 @@
+plugins {
+    id 'application'
+    id 'eclipse'
+}
+
+version = '0.0.1-SNAPSHOT'
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'
+
+application {
+    // Define the main class for the application.
+    mainClass = 'determine.cope.fixpoint.app.App'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    
+    implementation 'info.picocli:picocli:4.6.1'
+    annotationProcessor 'info.picocli:picocli-codegen:4.6.1'
+    
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.13.0'
+    
+    implementation 'org.slf4j:slf4j-log4j12:1.7.21'
+
+    // Use JUnit test framework
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+}
+
+test {
+    // JUnit platform を使う設定
+    useJUnitPlatform()
+
+    testLogging {
+        // テスト時の標準出力と標準エラー出力を表示する
+        showStandardStreams true
+        // イベントを出力する (TestLogEvent)
+        events 'started', 'skipped', 'passed', 'failed'
+        // 例外発生時の出力設定 (TestExceptionFormat)
+        exceptionFormat 'full'
+    }
+}
